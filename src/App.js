@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Create from './pages/Create'
+import Notes from './pages/Notes'
+import { teal } from '@material-ui/core/colors'
+import Layout from './components/Layout'
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#fefefe',
+    },
+    secondary: {
+      main: teal[400],
+    },
+  },
+  typography: {
+    fontFamily: 'Quicksand',
+  },
+})
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Layout>
+          <Switch>
+            <Route exact path='/' component={Notes} />
+            <Route exact path='/create' component={Create} />
+          </Switch>
+        </Layout>
+      </Router>
+    </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
